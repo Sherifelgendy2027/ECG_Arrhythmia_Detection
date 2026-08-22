@@ -1,0 +1,10 @@
+# Dataset and local data folder
+data/
+
+# Local executed test notebooks
+milestone_1_executed.ipynb
+
+# Python and Jupyter temp files
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
