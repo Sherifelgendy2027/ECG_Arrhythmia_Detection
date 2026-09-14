@@ -22,7 +22,17 @@ The foundational pipeline for heartbeat classification. The notebook maps all be
 4. **Data Leakage Prevention:**
    * Used **Patient-Level Splitting** (`GroupShuffleSplit` by `record_id`) ensuring beats from the same patient *never* appear in both train and test sets.
    * Fitted the `StandardScaler` and `PCA` strictly on the training set to prevent statistical leakage.
-5. **Classical ML Baseline:** Trained a `RandomForestClassifier` with balanced class weights to combat the severe class imbalance (Normal beats make up ~73% of the dataset).
+### ✅ Milestone 2: Classical Machine Learning Suite & Deep Learning Benchmark
+*See: [`machine_models.ipynb`](machine_models.ipynb)*
+
+An advanced multi-model benchmark comparing 7 models (4 Classical ML vs. 3 Deep Learning architectures) on raw ECG waveforms and patient-normalized features.
+
+#### Key Implementations:
+1. **Patient-Normalized Features:** Z-scores amplitude features per record to eliminate inter-patient voltage variations while preserving intra-patient arrhythmia morphology.
+2. **Classical ML Suite:** Trained and hyperparameter-tuned Logistic Regression, Random Forest, LightGBM, and Support Vector Machine (RBF kernel) using `RandomizedSearchCV` with 5-fold `GroupKFold`. SVM (RBF) is configurable to train on the full training set or a stratified subsample, trading runtime for tractability.
+3. **Deep Learning Suite:** Trained 1D-CNN, CNN-BiLSTM, and CNN-BiLSTM with Attention architectures directly on 216-sample beat waveforms. (A fourth architecture, Hybrid ResNet + Tabular, was evaluated and removed after showing unstable/diverging validation loss and the weakest Macro F1 of any deep learning model at the highest training cost.)
+4. **Overfitting/Underfitting Diagnostics:** Evaluated train vs. validation vs. test metrics across all classical and deep learning models.
+5. **Statistical Significance & Thresholding:** Calibrated classical models' decision thresholds using $F_1$ and $F_{0.5}$ criteria via cross-validated out-of-fold (OOF) predictions across all training patients (5-fold `GroupKFold`) rather than a single small validation slice, for more stable calibration; deep learning thresholds are calibrated on the validation set. Conducted McNemar's test for pairwise statistical significance across top models.
 
 ## 🛠 Setup & Installation
 
