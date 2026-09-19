@@ -34,6 +34,17 @@ An advanced multi-model benchmark comparing 7 models (4 Classical ML vs. 3 Deep 
 4. **Overfitting/Underfitting Diagnostics:** Evaluated train vs. validation vs. test metrics across all classical and deep learning models.
 5. **Statistical Significance & Thresholding:** Calibrated classical models' decision thresholds using $F_1$ and $F_{0.5}$ criteria via cross-validated out-of-fold (OOF) predictions across all training patients (5-fold `GroupKFold`) rather than a single small validation slice, for more stable calibration; deep learning thresholds are calibrated on the validation set. Conducted McNemar's test for pairwise statistical significance across top models.
 
+### ✅ Milestone 3: Production Backend & Deployment
+*See: `app.py`, `Dockerfile`, `requirements-prod.txt`*
+
+A fully containerized FastAPI backend for serving the trained ML/DL models in production. Built to run as a Docker container on Render or any cloud platform supporting `linux/amd64`.
+
+#### Key Implementations:
+1. **Model Serving Architecture:** Exposes REST API endpoints (`/predict/classical` and `/predict/deeplearning`) to serve the trained Support Vector Machine (RBF) and CNN-BiLSTM (Attention) models.
+2. **Lifespan Management:** Uses FastAPI's lifespan events to load heavy PyTorch and Scikit-Learn model artifacts (`.pt` and `.pkl`) into memory exactly once at startup, falling back to safe mock predictors if the files are absent.
+3. **Containerization:** A highly optimized, multi-stage Docker build separating OS-level dependencies, CPU-only PyTorch installation, and application requirements to stay within Render's memory constraints.
+4. **Interactive UI:** Includes a dark-themed HTML frontend served directly from the root (`/`) for easy browser-based manual testing of both endpoints.
+
 ## 🛠 Setup & Installation
 
 To run this project locally, clone the repository and download the dataset:

@@ -1,0 +1,32 @@
+# ============================================================
+# Production Requirements — ECG Arrhythmia Detection Backend
+# ============================================================
+# NOTE: torch and torchvision are intentionally NOT listed here.
+# They are installed in a dedicated Dockerfile layer via:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+# This keeps that ~700 MB layer cached independently of app changes.
+# ============================================================
+
+# Web Framework
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.9
+
+# Core Scientific & Data Analysis
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+
+# Machine Learning & Modeling
+scikit-learn>=1.3.0
+xgboost>=2.0.0
+lightgbm>=4.0.0
+statsmodels>=0.14.0
+
+# Visualization (needed if plots are generated server-side)
+matplotlib>=3.7.0
+seaborn>=0.12.0
+scikit-plots>=0.4.0
+
+# External API
+groq>=0.9.0
