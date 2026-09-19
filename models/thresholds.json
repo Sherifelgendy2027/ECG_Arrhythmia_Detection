@@ -1,0 +1,15 @@
+{
+  "classical": {
+    "Logistic Regression": 0.5177011809392382,
+    "Random Forest": 0.42751651508703153,
+    "LightGBM": 0.4377767867032759,
+    "Support Vector Machine (RBF)": 0.14094812171793078
+  },
+  "deep_learning": {
+    "1D-CNN": 0.29748350381851196,
+    "CNN-BiLSTM": 0.3143758475780487,
+    "CNN-BiLSTM (Attention)": 0.32808104157447815
+  },
+  "default_classical": "Support Vector Machine (RBF)",
+  "default_dl": "CNN-BiLSTM (Attention)"
+}

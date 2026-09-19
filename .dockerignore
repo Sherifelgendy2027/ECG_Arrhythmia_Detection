@@ -1,0 +1,53 @@
+# ==============================================================
+# .dockerignore — ECG Arrhythmia Detection Backend
+# Keeps the build context lean by excluding files that are:
+#   - Not needed at runtime
+#   - Secrets / local config
+#   - Too large to bake into the image
+# ==============================================================
+
+# --- Version control ---
+.git/
+.gitignore
+
+# --- Python runtime artefacts ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- Secrets & local environment config ---
+.env
+*.env
+
+# --- Jupyter Notebooks (not needed at runtime, ~1.5 MB each) ---
+*.ipynb
+.ipynb_checkpoints/
+
+# --- Raw MIT-BIH dataset (~1.5 GB of CSVs and JSONs) ---
+# The models/ directory is intentionally NOT excluded.
+# Trained artefacts (xray_cnn.pt, svm.pkl, etc.) live there
+# and must be present for inference at startup.
+data/
+
+# --- macOS metadata ---
+.DS_Store
+**/.DS_Store
+
+# --- IDE / editor configs ---
+.idea/
+.vscode/
+
+# --- Docker files (no need to recurse into them) ---
+Dockerfile
+.dockerignore
+
+# --- CI/CD and docs (not needed inside the container) ---
+README.md
